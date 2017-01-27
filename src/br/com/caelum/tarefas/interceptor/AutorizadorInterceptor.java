@@ -27,3 +27,4 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 		return false;
 	}
 }
+
