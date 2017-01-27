@@ -1,8 +1,5 @@
 package br.com.caelum.tarefas.controller;
 
-
-
-
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -17,6 +14,12 @@ import br.com.caelum.tarefas.modelo.Tarefa;
 @Controller
 public class TarefasController {
 	
+	private JdbcTarefaDao dao;
+	
+	public TarefasController()
+	{
+		dao = new JdbcTarefaDao();
+	}
 	@RequestMapping("novaTarefa")
 	public String form()
 	{
@@ -31,7 +34,6 @@ public class TarefasController {
 		{
 			return "tarefa/formulario";
 		}
-		JdbcTarefaDao dao = new JdbcTarefaDao();
 		dao.adiciona(tarefa);
 		return "tarefa/adicionada";
 	}
@@ -39,7 +41,6 @@ public class TarefasController {
 	@RequestMapping("listaTarefa")
 	public String lista(Model model)
 	{
-		JdbcTarefaDao dao = new JdbcTarefaDao();
 		model.addAttribute("tarefas", dao.lista());
 		return "tarefa/lista";
 	}
@@ -47,7 +48,6 @@ public class TarefasController {
 	@RequestMapping("removeTarefa")
 	public String remove(Tarefa tarefa)
 	{
-		JdbcTarefaDao dao = new JdbcTarefaDao();
 		dao.remove(tarefa);
 		return "redirect:listaTarefa";
 	}
@@ -55,7 +55,6 @@ public class TarefasController {
 	@RequestMapping("mostraTarefa")
 	public String mostra(Long id, Model model)
 	{
-		JdbcTarefaDao dao = new JdbcTarefaDao();
 		model.addAttribute("tarefa", dao.buscaPorId(id));
 		return "tarefa/mostra";
 	}
@@ -64,7 +63,6 @@ public class TarefasController {
 	public String altera( Tarefa tarefa)
 	{
 		
-		JdbcTarefaDao dao = new JdbcTarefaDao();
 		dao.altera(tarefa);
 		return "redirect:listaTarefa";
 	}	
@@ -73,7 +71,6 @@ public class TarefasController {
 	@RequestMapping("finalizaTarefa")
 	public String finaliza(Long id, Model model) 
 	{
-		JdbcTarefaDao dao = new JdbcTarefaDao();
 		dao.finaliza(id);
 		model.addAttribute("tarefa", dao.buscaPorId(id));
 		return "tarefa/finalizada";

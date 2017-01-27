@@ -1,24 +1,24 @@
 package br.com.caelum.tarefas.interceptor;
-
+		
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
-
+public class AutorizadorInterceptor extends HandlerInterceptorAdapter
+{
+	
 	@Override
-	public boolean preHandle(HttpServletRequest request, 
-							 HttpServletResponse response,
-							 Object controller) throws Exception 
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception 
 	{
 		String uri = request.getRequestURI();
-		if(uri.endsWith("loginForm") || uri.contains("resources"))
+		if(uri.endsWith("loginForm") || uri.endsWith("resources") || uri.endsWith("efetuaLogin"))
 		{
 			return true;
 		}
 		
-		if (request.getSession().getAttribute("usuarioLogado") != null)
+		if(request.getSession().getAttribute("usuarioLogado")!=null) 
 		{
 			return true;
 		}
@@ -26,5 +26,6 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 		response.sendRedirect("loginForm");
 		return false;
 	}
+	
+	
 }
-
