@@ -14,7 +14,7 @@
 		<input type="hidden" name="id" value="${tarefa.id}" />
 		Descrição: <br/>
 		<textarea name="descricao" cols="100" rows="5">
-		${tarefa.descricao}
+		${tarefa.descricao.trim()}
 		</textarea>
 		<br/>
 		Finalizado ?
