@@ -21,6 +21,7 @@
 			function(resposta) 
 			{
 			$("#tarefa_"+id).html(resposta);
+		alert(resposta);	
 			});
 	}
 </script>
